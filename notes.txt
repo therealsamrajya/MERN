@@ -1,0 +1,9 @@
+create a todolist with  a vertical | and horizontal navbar 
+figure out how to get current date
+categorize tasks 
+add notes , remove notes 
+before homepage use a login and signup button
+when login first display todays todo list 
+mobile responsive 
+crud in backend 
+authentication using jwt
