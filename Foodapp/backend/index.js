@@ -1,17 +1,19 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
-
-dotenv.config();
+import userRouter from "./src/routes/user.route.js";
+import foodItemsRoute from "./src/routes/foodItems.route.js";
+import cookieParser from "cookie-parser";
 
 const port = process.env.PORT || 4000;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 const mongoURI = process.env.MONGODB_URI;
-console.log("MongoDB URI:", process.env.MONGODB_URI);
 
 mongoose
   .connect(mongoURI)
@@ -21,6 +23,10 @@ mongoose
   .catch((error) => {
     console.error("Mongodb connection failed", error);
   });
+
+app.use("/api/food", foodItemsRoute);
+
+app.use("/api/users", userRouter);
 
 app.get("/", (req, res) => {
   res.send("Expresss App is Running");

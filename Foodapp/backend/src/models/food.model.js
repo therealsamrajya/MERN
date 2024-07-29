@@ -6,7 +6,7 @@ const foodSchema = new Schema(
       type: String,
       required: true,
     },
-    descrition: {
+    description: {
       type: String,
       required: true,
     },
@@ -26,4 +26,4 @@ const foodSchema = new Schema(
   { timestamps: true }
 );
 
-export const Food = mongoose.model("Food", foodSchema);
+export const FoodItem = mongoose.model("FoodItem", foodSchema);
