@@ -32,4 +32,51 @@ const createFoodItem = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, foodItem, "Food item created successfully"));
 });
 
-export { createFoodItem };
+const getAllFoodItems = asyncHandler(async (req, res) => {
+  const foodItems = await FoodItem.find();
+  res
+    .status(200)
+    .json(new ApiResponse(200, foodItems, "Food items fetched successfully"));
+});
+
+const updateFoodItem = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { name, description, price, category } = req.body;
+
+  const updatedData = { name, description, price, category };
+
+  if (req.file) {
+    updatedData.image = req.file.path;
+  }
+
+  const updatedFoodItem = await FoodItem.findByIdAndUpdate(id, updatedData, {
+    new: true,
+  });
+
+  if (!updatedFoodItem) {
+    throw new ApiError(404, "Food item not found");
+  }
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, updatedFoodItem, "Food item updated successfully")
+    );
+});
+
+const deleteFoodItem = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const deletedFoodItem = await FoodItem.findByIdAndDelete(id);
+
+  if (!deletedFoodItem) {
+    throw new ApiError(404, "Food item not found");
+  }
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, deletedFoodItem, "Food item deleted successfully")
+    );
+});
+
+export { createFoodItem, getAllFoodItems, updateFoodItem, deleteFoodItem };

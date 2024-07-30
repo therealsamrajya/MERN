@@ -18,7 +18,7 @@ const mongoURI = process.env.MONGODB_URI;
 mongoose
   .connect(mongoURI)
   .then(() => {
-    console.log("Mongoodb connected");
+    console.log("Mongodb connected");
   })
   .catch((error) => {
     console.error("Mongodb connection failed", error);
@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 
 app.listen(port, (error) => {
   if (!error) {
-    console.log(`Server rucnning on port ${port}`);
+    console.log(`Server running on port ${port}`);
   } else {
     console.log("Error:", error);
   }

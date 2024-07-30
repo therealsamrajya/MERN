@@ -23,6 +23,19 @@ const userSchema = new Schema(
     refreshToken: {
       type: String,
     },
+    cart: [
+      {
+        foodItem: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "FoodItem",
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          default: 1,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -57,6 +70,10 @@ userSchema.methods.generateAccessToken = function () {
     }
   );
 };
+
+//access token has short expiry date while refresh has long expiry date
+//we can acess any features that include authorizatio by using access tokens
+//we can use refresh token to get new access token
 
 userSchema.methods.generateRefreshToken = function () {
   return jwt.sign(

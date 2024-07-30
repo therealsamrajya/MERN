@@ -1,12 +1,22 @@
 import { Router } from "express";
 
-import { createFoodItem } from "../controllers/fooditem.controller.js";
+import {
+  createFoodItem,
+  getAllFoodItems,
+  updateFoodItem,
+  deleteFoodItem,
+} from "../controllers/fooditem.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.route("/create").post(upload.single("image"), createFoodItem);
+router.route("/create").post(verifyJWT, upload.single("image"), createFoodItem);
 
-// router.post("/food", upload.single("image"), createFoodItem);
+router.route("/").get(getAllFoodItems);
+
+router.route("/:id").put(verifyJWT, upload.single("image"), updateFoodItem);
+
+router.route("/:id").delete(verifyJWT, deleteFoodItem);
 
 export default router;
