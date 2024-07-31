@@ -10,6 +10,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* <Route path="/food:id" component={FoodItemDetail} /> */}
         </Routes>
       </BrowserRouter>
     </div>

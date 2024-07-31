@@ -79,4 +79,24 @@ const deleteFoodItem = asyncHandler(async (req, res) => {
     );
 });
 
-export { createFoodItem, getAllFoodItems, updateFoodItem, deleteFoodItem };
+const getFoodItemById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const foodItem = await FoodItem.findById(id);
+
+  if (!foodItem) {
+    throw new ApiError(404, "Food item not found");
+  }
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, foodItem, "Food item fetched successfully"));
+});
+
+export {
+  createFoodItem,
+  getAllFoodItems,
+  updateFoodItem,
+  deleteFoodItem,
+  getFoodItemById,
+};
