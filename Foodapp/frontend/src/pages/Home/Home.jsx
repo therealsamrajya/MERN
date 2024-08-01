@@ -1,11 +1,12 @@
 import React from "react";
-import Menu from "../Menu/Menu";
-import { Special } from "../../components";
+import { Promo, Special, Location, Mockup } from "../../components";
 const Home = () => {
   return (
     <div>
-      <Menu />
       <Special />
+      <Promo />
+      <Mockup />
+      <Location />
     </div>
   );
 };

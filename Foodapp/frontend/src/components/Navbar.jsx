@@ -25,10 +25,10 @@ const Navbar = () => {
 
       <div className="relative flex flex-col items-center z-10">
         {/* Icons */}
-        <div className="absolute flex-row gap-[1rem] top-3 left-2  mt-4 ml-4 flex space-x-4">
-          <FaFacebook className="text-white hover:text-gray-300 cursor-pointer h-[3rem] w-[3rem] max-sm:h-[1.5rem] max-sm:w-[1.5rem]" />
-          <FaTwitter className="text-white hover:text-gray-300 cursor-pointer h-[3rem] w-[3rem] max-sm:h-[1.5rem] max-sm:w-[1.5rem]" />
-          <FaInstagram className="text-white hover:text-gray-300 cursor-pointer h-[3rem] w-[3rem] max-sm:h-[1.5rem] max-sm:w-[1.5rem]" />
+        <div className="absolute flex-row gap-[1rem] top-3 left-2  mt-4 ml-4 flex space-x-4 z-50">
+          <FaFacebook className="text-heading hover:text-gray-300 cursor-pointer h-[3rem] w-[3rem] max-sm:h-[1.5rem] max-sm:w-[1.5rem] z-50" />
+          <FaTwitter className="text-heading hover:text-gray-300 cursor-pointer h-[3rem] w-[3rem] max-sm:h-[1.5rem] max-sm:w-[1.5rem]" />
+          <FaInstagram className="text-heading hover:text-gray-300 cursor-pointer h-[3rem] w-[3rem] max-sm:h-[1.5rem] max-sm:w-[1.5rem]" />
         </div>
 
         <div className="absolute top-3 right-0 mt-4 mr-4">

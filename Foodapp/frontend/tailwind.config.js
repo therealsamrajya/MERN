@@ -18,6 +18,8 @@ export default {
         "custom-background": "url('/src/images/banner1.jpg')",
         "about-background": "url('/src/images/banner2.jpg')",
         "menu-background": "url('/src/images/banner3.jpg')",
+        "promo-background": "url('/src/images/banner4.jpg')",
+        "mockup-background": "url('/src/images/image1.jpeg')",
       },
     },
   },
