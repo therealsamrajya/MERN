@@ -93,10 +93,24 @@ const getFoodItemById = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, foodItem, "Food item fetched successfully"));
 });
 
+const getFoodItemByCategory = asyncHandler(async (req, res) => {
+  const { category } = req.params;
+  const foodItem = await FoodItem.find({ category });
+
+  if (!foodItem) {
+    throw new ApiError(404, "Food item not found");
+  }
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, foodItem, "Food item fetched successfully"));
+});
+
 export {
   createFoodItem,
   getAllFoodItems,
   updateFoodItem,
   deleteFoodItem,
   getFoodItemById,
+  getFoodItemByCategory,
 };
