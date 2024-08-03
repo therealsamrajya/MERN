@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className="absolute top-3 right-0 mt-4 mr-4">
           <Button
             value="Contact Us"
-            className=" border-white border-[1px] text-heading bg-transparent h-[3rem] font-semibold uppercase w-[12rem] hover:bg-heading hover:text-dark max-sm:w-[8rem] max-sm:h-[1.5rem]"
+            className=" border-white border-[1px] text-heading bg-transparent h-[3rem] font-semibold uppercase w-[12rem] hover:bg-heading hover:text-dark max-sm:w-[8rem] max-sm:h-[1.5rem] font-button"
           />
         </div>
 
@@ -64,6 +64,7 @@ const Navbar = () => {
             About Us
           </NavLink>
         </div>
+
         {location.pathname === "/" && (
           <div className="flex flex-col items-center">
             <div className="flex flex-col text-heading text-[5rem] mt-[8rem] max-sm:text-[2rem] items-center justify-center font-secondary">
@@ -77,13 +78,30 @@ const Navbar = () => {
             <div className="flex flex-row justify-center items-center gap-[3rem] text-[1.2rem] ">
               <Button
                 value="Order Now"
-                className="mt-[2rem] text-heading bg-button h-[3rem] font-semibold uppercase w-[12rem] py-2 hover:bg-red-500"
+                className="mt-[2rem] font-button bg-button h-[3rem] font-semibold uppercase w-[12rem] py-2 hover:bg-red-500 text-heading"
               />
               <Button
                 value="Takeaway"
-                className="mt-[2rem] border-white border-[1px] text-heading bg-transparent h-[3rem] font-semibold uppercase w-[12rem] hover:bg-heading hover:text-dark"
+                className="mt-[2rem] border-white border-[1px] font-button bg-transparent h-[3rem] font-semibold uppercase w-[12rem] hover:bg-heading hover:text-dark text-heading"
               />
             </div>
+          </div>
+        )}
+
+        {location.pathname === "/menu" && (
+          <div className="flex flex-col items-center text-heading text-4xl mt-[3rem] font-bold font-primary">
+            <h2>MENU ITEMS</h2>
+            <span className="text-center mt-[3rem] font-primary font-semibold text-6xl">
+              Items that include your culnary taste <br />
+              Items that suit your mood we have got it here
+            </span>
+          </div>
+        )}
+
+        {location.pathname === "/About" && (
+          <div className="flex flex-col items-center text-heading text-4xl mt-[2rem]">
+            <h2>About Us</h2>
+            {/* Add any additional elements for the About Us page here */}
           </div>
         )}
       </div>

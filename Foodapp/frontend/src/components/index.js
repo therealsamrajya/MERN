@@ -7,6 +7,7 @@ import Promo from "./Promo";
 import Location from "./Location";
 import Footer from "./Footer";
 import Mockup from "./Mockup";
+import CategorySection from "./CategorySection";
 export {
   Navbar,
   Button,
@@ -17,4 +18,5 @@ export {
   Location,
   Footer,
   Mockup,
+  CategorySection,
 };
