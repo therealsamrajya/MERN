@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { Footer, Location, Navbar } from "./components";
-import { Home, Menu } from "./pages";
+import { About, Home, Menu } from "./pages";
 const App = () => {
   return (
     <div>
@@ -11,6 +11,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Menu" element={<Menu />} />
+          <Route path="/About" element={<About />} />
           {/* <Route path="/food:id" component={FoodItemDetail} /> */}
         </Routes>
         <Location />

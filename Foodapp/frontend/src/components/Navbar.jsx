@@ -11,7 +11,7 @@ const Navbar = () => {
     switch (location.pathname) {
       case "/menu":
         return "bg-menu-background";
-      case "/about":
+      case "/About":
         return "bg-about-background";
       default:
         return "bg-custom-background";
@@ -60,7 +60,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             className="font-secondary text-heading hover:text-slate-300 hover:underline underline-offset-4"
-            to="/about">
+            to="/About">
             About Us
           </NavLink>
         </div>
@@ -99,9 +99,14 @@ const Navbar = () => {
         )}
 
         {location.pathname === "/About" && (
-          <div className="flex flex-col items-center text-heading text-4xl mt-[2rem]">
-            <h2>About Us</h2>
-            {/* Add any additional elements for the About Us page here */}
+          <div className="flex flex-col items-center text-heading  text-4xl mt-[2rem] ">
+            <h2 className="text-heading font-primary text-6xl">About Us</h2>
+            <span className="text-heading font-secondary text-6xl max-sm:text-3xl justify-center text-center mt-[5rem] font-bold">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla
+              <br />
+              nostrum officia dolore quibusdam libero illo a facilis fugit
+              corrupti laudantium ducimus ipsam, at doloribus veniam.
+            </span>
           </div>
         )}
       </div>

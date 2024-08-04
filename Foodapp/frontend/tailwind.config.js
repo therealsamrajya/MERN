@@ -16,10 +16,12 @@ export default {
       },
       backgroundImage: {
         "custom-background": "url('/src/images/banner1.jpg')",
-        "about-background": "url('/src/images/banner2.jpg')",
+        "about-background": "url('/src/images/banner8.jpg')",
         "menu-background": "url('/src/images/banner3.jpg')",
         "promo-background": "url('/src/images/banner4.jpg')",
         "mockup-background": "url('/src/images/image1.jpeg')",
+        "about1-background": "url('/src/images/banner7.jpg')",
+        "about2-background": "url('/src/images/banner9.jpg')",
       },
     },
   },

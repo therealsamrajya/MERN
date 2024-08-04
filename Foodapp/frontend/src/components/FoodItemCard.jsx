@@ -1,9 +1,19 @@
 import React from "react";
+import { useInView } from "react-intersection-observer";
 import Button from "./Button";
 
 const FoodItemCard = ({ name, description, price, image, special }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Trigger the animation only once
+    threshold: 0.1, // Trigger when 10% of the card is visible
+  });
+
   return (
-    <div className="flex flex-row gap-[2rem] ">
+    <div
+      ref={ref}
+      className={`flex hover:scale-90 flex-row gap-[2rem] transition-opacity duration-700 ease-in-out ${
+        inView ? "opacity-100" : "opacity-0"
+      }`}>
       <img
         src={image}
         alt={name}
@@ -11,7 +21,7 @@ const FoodItemCard = ({ name, description, price, image, special }) => {
           special ? "rounded-full" : "rounded-lg"
         }`}
       />
-      <div className="flex flex-col">
+      <div className="flex flex-col ">
         <h2 className="font-bold font-primary text-4xl text-dark">{name}</h2>
         <p className="text-gray-600 font-secondary whitespace-nowrap mt-4">
           {description}
