@@ -10,7 +10,6 @@ import cookieParser from "cookie-parser";
 const port = process.env.PORT || 4000;
 const app = express();
 app.use(express.json());
-app.use(cors());
 app.use(cookieParser());
 
 const mongoURI = process.env.MONGODB_URI;
@@ -24,12 +23,19 @@ mongoose
     console.error("Mongodb connection failed", error);
   });
 
+// CORS configuration
+const corsOptions = {
+  origin: "http://localhost:5173", // frontend URL
+  credentials: true, // allow credentials
+};
+app.use(cors(corsOptions));
+
 app.use("/api/food", foodItemsRoute);
 
 app.use("/api/users", userRouter);
 
 app.get("/", (req, res) => {
-  res.send("Expresss App is Running");
+  res.send("Express App is Running");
 });
 
 app.listen(port, (error) => {

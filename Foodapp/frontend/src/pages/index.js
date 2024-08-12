@@ -1,4 +1,6 @@
 import Home from "./Home/Home";
 import Menu from "./Menu/Menu";
 import About from "./About/About";
-export { Home, Menu, About };
+import LoginSignup from "./LoginSignup/LoginSignup";
+import CartPage from "./CartPage/CartPage";
+export { Home, Menu, About, LoginSignup, CartPage };

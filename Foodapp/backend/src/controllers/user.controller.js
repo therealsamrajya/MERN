@@ -86,8 +86,9 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
   };
+
   //cokkies cant be modified in frontend olny modified in server by httpOnly
   return res
     .status(200)
@@ -239,7 +240,10 @@ const removeFromCart = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User not found");
   }
 
-  user.cart = user.cart.filter((itemId) => itemId.toString() !== foodItemId);
+  // Ensure that each item in the cart has a valid foodItem field
+  user.cart = user.cart.filter(
+    (item) => item.foodItem?.toString() !== foodItemId
+  );
 
   await user.save();
 
@@ -249,15 +253,27 @@ const removeFromCart = asyncHandler(async (req, res) => {
 });
 
 const getUserCart = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id).populate("cart");
+  const user = await User.findById(req.user._id).populate("cart.foodItem");
 
   if (!user || !user.cart || user.cart.length === 0) {
-    throw new ApiError(404, "Cart is empty");
+    return res.status(404).json(new ApiResponse(404, [], "Cart is empty"));
   }
 
   res
     .status(200)
     .json(new ApiResponse(200, user.cart, "Cart items fetched successfully"));
+});
+
+const checkAuth = asyncHandler(async (req, res) => {
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { isAuthenticated: true, user: req.user },
+        "User is authenticated"
+      )
+    );
 });
 
 export {
@@ -269,4 +285,5 @@ export {
   getUserCart,
   addToCart,
   removeFromCart,
+  checkAuth,
 };

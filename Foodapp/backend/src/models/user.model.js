@@ -2,6 +2,15 @@ import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
+const cartItemSchema = new mongoose.Schema({
+  foodItem: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "FoodItem",
+    required: true,
+  },
+  quantity: { type: Number, required: true },
+});
+
 const userSchema = new Schema(
   {
     username: {

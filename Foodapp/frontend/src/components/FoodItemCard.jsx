@@ -2,7 +2,7 @@ import React from "react";
 import { useInView } from "react-intersection-observer";
 import Button from "./Button";
 
-const FoodItemCard = ({ name, description, price, image, special }) => {
+const FoodItemCard = ({ _id, name, description, price, image, special }) => {
   const { ref, inView } = useInView({
     triggerOnce: true, // Trigger the animation only once
     threshold: 0.1, // Trigger when 10% of the card is visible
@@ -29,7 +29,6 @@ const FoodItemCard = ({ name, description, price, image, special }) => {
         <p className="text-lg font-semibold font-secondary mt-4">Rs {price}</p>
         {!special && (
           <Button
-            to="/addtocart"
             value="Add to Cart"
             className="mt-8 text-heading font-button bg-button h-12 font-semibold uppercase w-fit py-2 hover:bg-red-500 whitespace-nowrap"
           />
