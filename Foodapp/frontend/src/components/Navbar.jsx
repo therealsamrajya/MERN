@@ -46,14 +46,14 @@ const Navbar = () => {
           {isAuthenticated ? (
             <button
               onClick={handleLogout}
-              className="border-white border-[1px] text-heading bg-transparent h-[3srem] text-[1.5rem] font-semibold uppercase w-[7rem] hover:bg-heading hover:text-dark max-sm:w-[8rem] max-sm:h-[1.5rem] font-button">
+              className="border-white border-[1px] text-heading bg-transparent h-[3srem] text-[1.5rem] font-semibold uppercase w-[7rem] hover:bg-heading hover:text-dark max-sm:w-[8rem] max-sm:h-[2rem] font-button">
               Logout
             </button>
           ) : (
             <Button
               value="Login"
               to="/LoginSignup"
-              className="border-white border-[1px] text-heading bg-transparent h-[3rem] text-[1.5rem] font-semibold uppercase w-[7rem] text-center hover:bg-heading hover:text-dark max-sm:w-[8rem] max-sm:h-[1.5rem] font-button"
+              className="border-white border-[1px] text-heading bg-transparent h-[3rem] text-[1.5rem] font-semibold  uppercase w-[7rem] text-center hover:bg-heading hover:text-dark max-sm:w-[8rem] max-sm:h-[2rem] font-button"
             />
           )}
         </div>

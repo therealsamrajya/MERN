@@ -25,11 +25,11 @@ router.route("/refresh-token").post(refreshAccessToken);
 
 router.route("/reset-password").post(resetPassword);
 
-router.route("/cart/add").post(addToCart);
+router.route("/cart/add").post(verifyJWT, addToCart);
 
-router.route("/cart/remove").post(removeFromCart);
+router.route("/cart/remove").delete(verifyJWT, removeFromCart);
 
-router.route("/cart").get(getUserCart);
+router.route("/cart").get(verifyJWT, getUserCart);
 
 router.route("/check-auth").get(verifyJWT, checkAuth);
 

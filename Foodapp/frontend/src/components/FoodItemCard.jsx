@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { useInView } from "react-intersection-observer";
+import axios from "axios";
 import Button from "./Button";
 
 const FoodItemCard = ({ _id, name, description, price, image, special }) => {
   const { ref, inView } = useInView({
-    triggerOnce: true, // Trigger the animation only once
-    threshold: 0.1, // Trigger when 10% of the card is visible
+    triggerOnce: true,
+    threshold: 0.1,
   });
+
+  const [message, setMessage] = useState(""); // State to hold success or error messages
+
+  const handleAddToCart = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        "http://localhost:4000/api/users/cart/add",
+        { foodItemId: _id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setMessage("Item added to cart successfully!"); // Set success message
+    } catch (err) {
+      console.error("Error adding item to cart", err);
+      setMessage("Failed to add item to cart."); // Set error message
+    }
+  };
 
   return (
     <div
@@ -29,9 +51,18 @@ const FoodItemCard = ({ _id, name, description, price, image, special }) => {
         <p className="text-lg font-semibold font-secondary mt-4">Rs {price}</p>
         {!special && (
           <Button
+            onClick={handleAddToCart}
             value="Add to Cart"
             className="mt-8 text-heading font-button bg-button h-12 font-semibold uppercase w-fit py-2 hover:bg-red-500 whitespace-nowrap"
           />
+        )}
+        {message && (
+          <p
+            className={`mt-4 ${
+              message.includes("Failed") ? "text-red-500" : "text-green-500"
+            }`}>
+            {message}
+          </p>
         )}
       </div>
     </div>

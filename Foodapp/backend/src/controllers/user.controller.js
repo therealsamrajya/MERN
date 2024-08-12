@@ -203,7 +203,6 @@ const resetPassword = asyncHandler(async (req, res) => {
 const addToCart = asyncHandler(async (req, res) => {
   const { foodItemId } = req.body;
 
-  // Ensure the user is authenticated
   if (!foodItemId) {
     throw new ApiError(400, "Food item ID is required");
   }
@@ -215,16 +214,29 @@ const addToCart = asyncHandler(async (req, res) => {
   }
 
   // Check if the item is already in the cart
-  if (user.cart.includes(foodItemId)) {
-    return res
-      .status(400)
-      .json(new ApiResponse(400, {}, "Item already in cart"));
+  const existingItem = user.cart.find(
+    (item) => item._id.toString() === foodItemId
+  );
+
+  if (existingItem) {
+    // Update the quantity if the item already exists
+    existingItem.quantity += 1;
+  } else {
+    // Add new item to cart with quantity 1
+    user.cart.push({ _id: foodItemId, quantity: 1 });
   }
 
-  user.cart.push(foodItemId);
   await user.save();
 
-  res.status(200).json(new ApiResponse(200, user.cart, "Item added to cart"));
+  // Ensure cart is correctly formatted before sending response
+  const formattedCart = user.cart.map((item) => ({
+    _id: item._id,
+    quantity: item.quantity,
+  }));
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, formattedCart, "Item added to cart"));
 });
 
 const removeFromCart = asyncHandler(async (req, res) => {
@@ -240,28 +252,54 @@ const removeFromCart = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User not found");
   }
 
-  // Ensure that each item in the cart has a valid foodItem field
-  user.cart = user.cart.filter(
-    (item) => item.foodItem?.toString() !== foodItemId
-  );
+  // Ensure foodItemId is in string format for comparison
+  const foodItemIdStr = foodItemId.toString();
+
+  console.log("Removing Item ID:", foodItemIdStr);
+
+  // Remove item from cart
+  user.cart = user.cart.filter((item) => item._id.toString() !== foodItemIdStr);
 
   await user.save();
 
+  // Format the updated cart for response
+  const formattedCart = user.cart.map((item) => ({
+    _id: item._id,
+    quantity: item.quantity,
+  }));
+
   res
     .status(200)
-    .json(new ApiResponse(200, user.cart, "Item removed from cart"));
+    .json(new ApiResponse(200, formattedCart, "Item removed from cart"));
 });
 
 const getUserCart = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id).populate("cart.foodItem");
+  // Find the user and populate the cart's food item details
+  const user = await User.findById(req.user._id).populate({
+    path: "cart._id", // Populating the food item details
+    model: "FoodItem", // Make sure this matches the name of your FoodItem model
+  });
 
   if (!user || !user.cart || user.cart.length === 0) {
     return res.status(404).json(new ApiResponse(404, [], "Cart is empty"));
   }
 
+  // Format and aggregate cart items to avoid duplicates
+  const cartItems = user.cart.reduce((acc, item) => {
+    const existingItem = acc.find(
+      (i) => i._id.toString() === item._id.toString()
+    );
+    if (existingItem) {
+      existingItem.quantity += item.quantity;
+    } else {
+      acc.push({ ...item._doc, quantity: item.quantity });
+    }
+    return acc;
+  }, []);
+
   res
     .status(200)
-    .json(new ApiResponse(200, user.cart, "Cart items fetched successfully"));
+    .json(new ApiResponse(200, cartItems, "Cart items fetched successfully"));
 });
 
 const checkAuth = asyncHandler(async (req, res) => {

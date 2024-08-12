@@ -16,8 +16,14 @@ export const AuthProvider = ({ children }) => {
         }
       );
 
-      // Assuming the response contains tokens
-      const { accessToken, refreshToken } = response.data;
+      // Log the entire response to inspect its structure
+      console.log("Login response:", response.data);
+
+      // Access tokens from the nested data object
+      const { accessToken, refreshToken } = response.data.data;
+
+      // Log tokens to verify they are being accessed correctly
+      console.log("Destructured tokens:", { accessToken, refreshToken });
 
       // Store tokens securely (localStorage example)
       localStorage.setItem("accessToken", accessToken);
